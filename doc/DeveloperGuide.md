@@ -45,7 +45,13 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | add a new person |
 `* * *` | user | delete a person | remove entries that I no longer need
 `* * *` | user | find a person by name | locate details of persons without having to go through the entire list
+`* * *` | user | edit a person's current details | update address book without deleting and adding his name
+`* * *` | user | view all person in addressbook | locate a person without knowing his full name
 `* *` | user | hide [private contact details](#private-contact-detail) by default | to minimize chance of someone else seeing them by accident
+`* *` | user | undo previous command executed | to fix a mistake
+`*` | user | categorise groups of friends | be secretive and not allow others to see a particular group of friends
+`*` | user | have a auto backup copy of my addressbook | revert to last saved state
+`*` | user | view all commands entered in the current session | verify my addressbook is updated 
 `*` | user with many persons in the address book | sort persons by name | locate a person easily
 
 
@@ -74,12 +80,57 @@ Use case ends.
 > 3a1. AddressBook shows an error message <br>
   Use case resumes at step 2
 
+#### Use case: Tag person
+**MSS**
+
+**For Existing persons**
+1. User request to list persons 
+2. AddressBook shows a list of persons
+3. User request to edit tags for a person in the list
+4. AddressBook edits the person tags
+Use case ends
+
+Extensions:
+
+3a. AddressBook detects person not found
+	3a1. AddressBook requests user to add person
+	3a2. User requests to \underline add person ( \bold UC *a )
+	Use Case ends.
+
+3b. User requests to add tag
+	3b1. AddressBook detects user has identical tag
+	3b2. AddressBook informs user duplicate tag 
+	3b3. AddressBook prompts user to add unique tag
+Steps 3b1-3b2 are repeated until user adds unique tag
+Use Case ends.
+
+3c. User request to delete tag
+	3c1. AddressBook is unable to find tag associated with person
+	3c2. AddressBook list tags for the person
+	3c3. AddressBook informs user no such tag was found
+	3c4. Addressbook prompts the user to delete a tag associated with the person
+	3c5. User deletes a tag associated with the person
+Steps 3c1-3c4 are repeated until user request to delete a tag associated with the person
+Use Case ends.	
+
+*a. At any time, user requests to add new person with tag
+	*a1. AddressBook verifies new person data
+	*a2. AddressBook detects error in data
+	*a3. AddressBook prints correct data format
+	*a4. AddressBook requests for correct data
+	*a5. User enters correct data
+Steps *a3-*a4 are repeated until the data entered is correct
+Use case ends.	
+
+
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java 8 or higher installed.
 2. Should be able to hold up to 1000 persons.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
+5. Should backup the data each time user requests to exit the program
+6. Should request a password for opening up details of secretive section of AddressBook
 
 ## Appendix D : Glossary
 
